@@ -10,11 +10,12 @@ var outer = function(){
 //Invoke outer saving the return value into another variable called 'inner'.
 
   //Code Here
+  var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
-
+inner();
 
 
 //Next problem
@@ -33,6 +34,9 @@ var callFriend = function(){
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
   //Code Here
+var callJake = callFriend();
+
+callJake("435-215-9248");
 
 
 
@@ -45,13 +49,17 @@ var callFriend = function(){
 */
 
   //Code Here
+function makeCounter() {
+ var num = 1;
+   return function() {
+   return num++;
+ }
+}
   var count = makeCounter();
   count() // 1
   count() // 2
   count() // 3
   count() // 4
-
-
 
 //Next Problem
 
@@ -61,9 +69,18 @@ var callFriend = function(){
   Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's first parameter. The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
 */
 
-  //Code Here
+  //Code  Here
+var scream = function() {
+  alert("woot!");
+}
 
+var quietDown = function(scream) {
+  return var noise = function() {
+    return scream();
+  }
+}
 
+noise();
 
 //Next Problem
 
