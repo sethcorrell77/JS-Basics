@@ -70,17 +70,25 @@ function makeCounter() {
 */
 
   //Code  Here
-var scream = function() {
+function scream() {
   alert("woot!");
+ }
+
+function quietDown() {
+  var noise = false;
+  var noNoise = scream();
+  return function() {
+      if (noise === false) {
+        noise = true;
+        return noNoise;
+      }
+      else  {
+        alert("no way");
+      }
 }
 
-var quietDown = function(scream) {
-  return var noise = function() {
-    return scream();
-  }
-}
+quietDown();
 
-noise();
 
 //Next Problem
 
