@@ -69,25 +69,28 @@ function makeCounter() {
   Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's first parameter. The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
 */
 
-  //Code  Here
-function scream() {
+  //Code  Here   first function
+var scream = function() {
   alert("woot!");
  }
 
-function quietDown() {
-  var noise = false;
-  var noNoise = scream();
-  return function() {
-      if (noise === false) {
-        noise = true;
-        return noNoise;
-      }
-      else  {
-        alert("no way");
-      }
-}
+// The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
 
-quietDown();
+function quietDown(noNoise) { 
+  var noise = false;
+  return function() {
+      if (!noise){
+        noise = true;
+        return noNoise();
+      }
+  }
+};
+
+
+var newNoise = quietDown(scream);
+
+newNoise();
+
 
 
 //Next Problem
@@ -97,8 +100,19 @@ quietDown();
 /*
   Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
+var beat = function() {
+  console.log("Thump, dum, Thump, dum")
+  }
+
+function fnCounter(anFn, N) { 
+  for(var i = 0; i < N; i++){
+    anFn();
+    }
+     return ('STOP');
+  }
 
 
+ fnCounter(beat, 5);
 
 //Next Problem
 
@@ -117,6 +131,7 @@ quietDown();
 
     //Answer Here
 
+The counter will run for a given period of time.
 
   Now, run the function in your console and note what happpens.
 
@@ -124,12 +139,21 @@ quietDown();
 
     //Answer Here
 
+  I was half right, the counter ran for only a given period of time, but more specifically, it ran for 5 seconds.
+
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc)
 */
 
     //Code Here
 
+  var counter = function(){
+    for (var i=1; i<=5; i++) {
+      setTimeout( function timer(num){
+          console.log( num );
+      }, i*1000, i );
+    }
+  };
 
 
 //Next Problem
@@ -138,6 +162,7 @@ quietDown();
 
 /*
   Make the following code work
+
 
   funcArray[0]() //0
   funcArray[1]() //1
@@ -148,5 +173,33 @@ quietDown();
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
+
+
+function myFunc(){
+
+  var myArray = [];
+
+  for(var i = 0; i < 6; i++){
+
+      myArray.push(
+        (function(j){
+          return function() {
+            console.log(j);
+          }
+        }(j))
+      )
+   }
+   return myArray;
+ }
+
+var funcArray = myFunc();
+
+  funcArray[0](); //0
+  funcArray[1](); //1
+  funcArray[2](); //2
+  funcArray[3](); //3
+  funcArray[4](); //4
+  funcArray[5](); //5
+
 
 
